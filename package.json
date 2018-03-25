@@ -1,0 +1,33 @@
+{
+  "private": true,
+  "name": "navikt-github-portal",
+  "version": "1.0.0",
+  "description": "Github portal for NAV",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node src/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "tslint --format verbose --project tsconfig.json --config tslint.json pages/**/* components/**/*",
+    "build": "next build",
+    "start": "NODE_ENV=production node src/server.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.3",
+    "isomorphic-unfetch": "^2.0.0",
+    "next": "^5.0.0",
+    "octotree": "^1.6.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "tslint": "^5.9.1"
+  },
+  "devDependencies": {
+    "@types/next": "^2.4.8",
+    "@types/react": "^16.0.41",
+    "@zeit/next-typescript": "^0.0.11",
+    "tslint-config-standard": "^7.0.0",
+    "tslint-react": "^3.5.1",
+    "typescript": "^2.7.2"
+  }
+}
