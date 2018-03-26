@@ -5,3 +5,4 @@ node_modules
 .next
 .server-dist
 yarn-error.log
+.env
