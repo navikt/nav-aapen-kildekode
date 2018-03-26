@@ -11,13 +11,3 @@ if (parseResult.error) {
 }
 
 export const getConfig = key => process.env[key]
-
-export const getSecret = key => {
-  const secretFile = path.resolve('secrets', key)
-  if (fs.existsSync(secretFile)) {
-    console.error(`Could not read secret ${key}: file ${secretFile} does not exist.`)
-    process.exit(1)
-  } else {
-    return fs.readFileSync(secretFile, 'utf-8')
-  }
-}
