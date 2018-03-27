@@ -1,5 +1,6 @@
 import * as React from 'react'
 import Layout from '../components/layout'
+import app from '../containers/app'
 
 const VimeoEmbed = (props: { src: string }) => (
   <iframe
@@ -11,7 +12,7 @@ const VimeoEmbed = (props: { src: string }) => (
   />
 )
 
-export default () => (
+export default app(() => (
   <Layout page="presentasjoner" title="Presentasjoner">
     <div className="container mt-3">
       <h1>Presentasjoner</h1>
@@ -77,4 +78,4 @@ export default () => (
       </article>
     </div>
   </Layout>
-)
+))
