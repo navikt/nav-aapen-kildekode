@@ -7,8 +7,8 @@
   "scripts": {
     "build-server": "tsc --project tsconfig.server.json",
     "dev": "yarn build-server && node .server-dist/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "tslint --format verbose --project tsconfig.json --config tslint.json pages/**/* components/**/*",
+    "test": "jest",
+    "lint": "tslint --format verbose --project tsconfig.json --config tslint.json components/**/* containers/**/* pages/**/* state/**/*",
     "build": "yarn build-server && next build",
     "start": "NODE_ENV=production node .server-dist/index.js"
   },
@@ -25,15 +25,33 @@
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.7",
     "redux": "^3.7.2",
+    "redux-devtools-extension": "^2.13.2",
     "redux-thunk": "^2.2.0",
     "tslint": "^5.9.1"
   },
   "devDependencies": {
+    "@types/jest": "^22.2.2",
     "@types/next": "^2.4.8",
     "@types/react": "^16.0.41",
     "@zeit/next-typescript": "^0.0.11",
+    "jest": "^22.4.3",
+    "ts-jest": "^22.4.2",
     "tslint-config-standard": "^7.0.0",
     "tslint-react": "^3.5.1",
     "typescript": "^2.7.2"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
   }
 }

@@ -1,5 +1,6 @@
 import * as React from 'react'
 import Layout from '../components/layout'
+import app from '../containers/app'
 
 // tslint:disable object-literal-sort-keys
 const terms: {} = {
@@ -78,7 +79,7 @@ const Term = (props: { name: string, children: React.Childen }) => (
   </React.Fragment>
 )
 
-export default () => (
+export default app(() => (
   <Layout page="ordbok" title="Ordbok">
     <div className="container mt-3">
       <h1>Ordbok</h1>
@@ -93,4 +94,4 @@ export default () => (
       </dl>
     </div>
   </Layout>
-)
+))

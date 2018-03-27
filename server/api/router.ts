@@ -24,11 +24,11 @@ router.get('/teams', async (req, res) => {
   }
 })
 
-router.get('/teams/:key', (req, res) => res.send({
-  key: req.params.key,
+router.get('/teams/:slug', (req, res) => res.send({
+  slug: req.params.slug,
   name: 'Teamnavn',
   repositories: [{
-    key: 'foo',
+    slug: 'foo',
     name: 'foo-test-app'
   }]
 }))
