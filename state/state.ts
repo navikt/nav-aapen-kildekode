@@ -7,5 +7,11 @@ export const initialState = {
     loading: false,
     items: {}
   },
-  teamsBySlug: {}
+  teamsById: {},
+  repositories: {
+    loaded: false,
+    loading: false,
+    items: {}
+  },
+  repositoriesById: {}
 }
