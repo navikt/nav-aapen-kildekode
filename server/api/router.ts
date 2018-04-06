@@ -1,5 +1,5 @@
 import express from 'express'
-import { getInstallationClient } from './githubClient'
+import { getInstallationClient, fetchAll } from './githubClient'
 import * as config from '../config'
 
 const router = new express.Router()
@@ -19,18 +19,45 @@ router.get('/teams', async (req, res) => {
     const result = await installationClient.orgs.getTeams({ org: config.getConfig('GITHUB_ORG_NAME') })
     res.send(result.data)
   } catch (error) {
-    console.error('Could not get teams', error);
+    console.error('Could not get teams', error)
     res.status(500).json({ message: 'Could not get teams' })
   }
 })
 
-router.get('/teams/:slug', (req, res) => res.send({
-  slug: req.params.slug,
-  name: 'Teamnavn',
-  repositories: [{
-    slug: 'foo',
-    name: 'foo-test-app'
-  }]
-}))
+router.get('/teams/:id', async (req, res) => {
+  try {
+    const id = req.params.id
+    const installationClient = await getInstallationClient()
+    const [meta, repos] = await Promise.all([
+      installationClient.orgs.getTeam({ id }),
+      fetchAll(installationClient, (params) => installationClient.orgs.getTeamRepos({ ...params, id }))
+    ])
+    res.send({
+      id,
+      repos,
+      name: meta.data.name,
+      repositories: repos.filter(repo => !repo.private).map(({ id, name, description, html_url }) => ({ id, name, description, html_url }))
+    })
+  } catch (error) {
+    console.error('Could not get team', error)
+    res.status(500).json({ message: 'Could not get team' })
+  }
+})
+
+router.get('/repositories', async (req, res) => {
+  try {
+    const installationClient = await getInstallationClient()
+      const all = await fetchAll(installationClient, (params) =>
+    installationClient.repos.getForOrg({
+      org: config.getConfig('GITHUB_ORG_NAME'), per_page: 100,
+      ...params,
+      type: 'public'
+    }))
+    res.send(all)
+  } catch (error) {
+    console.error('Could not get all public repositories', error)
+    res.status(500).json({ message: 'Could not get public repositories' })
+  }
+})
 
 export default router

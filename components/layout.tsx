@@ -65,6 +65,7 @@ export default (props: {
         <ul className="navbar-nav mr-auto">
           <MenuItem href="/" name="Utforsk" isCurrent={props.page === 'index'}/>
           <MenuItem href="/teams" name="Avdelinger" isCurrent={props.page === 'teams'}/>
+          <MenuItem href="/repositories" name="Kodebaser" isCurrent={props.page === 'repositories'}/>
           <MenuItem href="/ordbok" name="Ordbok" isCurrent={props.page === 'ordbok'}/>
           <MenuItem href="/presentasjoner" name="Presentasjoner" isCurrent={props.page === 'presentasjoner'}/>
         </ul>

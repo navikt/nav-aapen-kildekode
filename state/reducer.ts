@@ -1,13 +1,14 @@
 import {
   LOAD_CONFIG_SUCCESS,
+  LOAD_REPOSITORIES_SUCCESS,
   LOAD_TEAM_SUCCESS,
   LOAD_TEAMS_SUCCESS
 } from './actions';
 
-function asMap (teams) {
+function asMap (teams, idKey) {
   const map = {}
   teams.forEach((team) => {
-    map[team.slug] = team
+    map[String(team[idKey])] = team
   })
   return map
 }
@@ -31,16 +32,34 @@ export default function reducer (state, action) {
         teams: {
           loading: false,
           loaded: true,
-          items: action.teams.map(team => team.slug)
+          items: action.teams.map(team => team.id)
         },
-        teamsBySlug: asMap(action.teams)
+        teamsById: asMap(action.teams, 'id')
       }
     case LOAD_TEAM_SUCCESS:
+      const { id, name, repositories } = action.team
       return {
         ...state,
-        teamsBySlug: {
-          ...state.teamsBySlug,
-          [action.team.slug]: action.team
+        teamsById: {
+          ...state.teamsById,
+          [String(action.team.id)]: { id, name, repositories: repositories.map(repo => repo.id) }
+        },
+        repositoriesById: {
+          ...state.repositoriesById,
+          ...asMap(repositories, 'id')
+        }
+      }
+    case LOAD_REPOSITORIES_SUCCESS:
+      return {
+        ...state,
+        repositories: {
+          loading: false,
+          loaded: true,
+          items: action.repositories.map(repo => repo.id)
+        },
+        repositoriesById: {
+          ...state.repositoriesById,
+          ...asMap(action.repositories, 'id')
         }
       }
     default:

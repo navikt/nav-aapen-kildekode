@@ -27,12 +27,15 @@ describe('Reducer', () => {
   it('Load list of teams successfully', () => {
     const action = {
       teams: [{
+        id: 1,
         name: 'The Lannisters',
         slug: 'lannisters'
       }, {
+        id: 2,
         name: 'The Dothraki',
         slug: 'dothrakis'
       }, {
+        id: 3,
         name: 'The Starks',
         slug: 'starks'
       }],
@@ -42,22 +45,77 @@ describe('Reducer', () => {
     const after = {
       ...initialState,
       teams: {
-        items: ['lannisters', 'dothrakis', 'starks'],
+        items: [1, 2, 3],
         loaded: true,
         loading: false
       },
-      teamsBySlug: {
-        dothrakis: {
-          name: 'The Dothraki',
-          slug: 'dothrakis'
-        },
-        lannisters: {
+      teamsById: {
+        1: {
+          id: 1,
           name: 'The Lannisters',
           slug: 'lannisters'
         },
-        starks: {
+        2: {
+          id: 2,
+          name: 'The Dothraki',
+          slug: 'dothrakis'
+        },
+        3: {
+          id: 3,
           name: 'The Starks',
           slug: 'starks'
+        }
+      }
+    }
+
+    expect(reducer(initialState, action)).toEqual(after)
+  })
+
+  it('Load data about a single team', () => {
+    const action = {
+      team: {
+        id: 4,
+        name: 'Best Team Ever',
+        repositories: [{
+          description: 'It is truly fantastic',
+          html_url: 'https://github.com/navikt/a-great-application',
+          id: 123,
+          name: 'a-great-application',
+          private: false
+        }, {
+          description: 'Nobody knows what this library does.',
+          html_url: 'https://github.com/navikt/some-random-library',
+          id: 456,
+          name: 'some-random-library',
+          private: false
+        }]
+      },
+      type: 'LOAD_TEAM_SUCCESS'
+    }
+
+    const after = {
+      ...initialState,
+      repositoriesById: {
+        123: {
+          description: 'It is truly fantastic',
+          html_url: 'https://github.com/navikt/a-great-application',
+          id: 123,
+          name: 'a-great-application',
+          private: false
+        },
+        456: {
+          description: 'Nobody knows what this library does.',
+          html_url: 'https://github.com/navikt/some-random-library',
+          id: 456,
+          name: 'some-random-library',
+          private: false
+        }
+      },
+      teamsById: {
+        4: {
+          id: 4,
+          name: 'Best Team Ever',
+          repositories: [123, 456]
         }
       }
     }

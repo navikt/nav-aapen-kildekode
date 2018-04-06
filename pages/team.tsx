@@ -6,8 +6,13 @@ import app from '../containers/app'
 import { loadTeam } from '../state/actions'
 
 function mapStateToProps (state) {
-  if (state.query.key && state.teamsBySlug[state.query.key]) {
-    return state.teamsBySlug[state.query.key]
+  if (state.query.key && state.teamsById[String(state.query.key)]) {
+    const { id, name, repositories } = state.teamsById[String(state.query.key)]
+    return {
+      id,
+      name,
+      repositories: repositories.map((repoId) => state.repositoriesById[String(repoId)])
+    }
   } else {
     return {
       name: '',
@@ -29,8 +34,8 @@ export default app(connect(mapStateToProps)(class Team extends React.Component {
         <div className="container">
           <h1>Avdeling: {this.props.name}</h1>
           {this.props.repositories.map((repo) => (
-            <div key={repo.slug}>
-              <h2><Link href={'/repository/' + repo.key}><a>{repo.name}</a></Link></h2>
+            <div key={repo.id}>
+              <h2><Link href={repo.html_url}><a>{repo.name}</a></Link></h2>
             </div>
           ))}
         </div>
