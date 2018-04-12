@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/navikt/nav-aapen-kildekode.svg?branch=master)](https://travis-ci.org/navikt/nav-aapen-kildekode)
+
 # Portal for åpen kildekode i NAV
 
 Dette er en applikasjon som presenterer
