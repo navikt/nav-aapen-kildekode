@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "navikt-github-portal",
+  "name": "nav-aapen-kildekode",
   "version": "1.0.0",
   "description": "Github portal for NAV",
   "main": "index.js",
