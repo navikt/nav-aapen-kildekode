@@ -13,6 +13,14 @@ function mapStateToProps (state) {
   }
 }
 
+function TravisBadge (props: { slug: string, defaultBranch: string }) {
+  return (
+    <a href={'https://travis-ci.org/' + props.slug}>
+      <img src={'https://travis-ci.org/' + props.slug + '.svg?branch=' + props.defaultBranch} />
+    </a>
+  )
+}
+
 export default app(connect(mapStateToProps)(class Teams extends React.Component {
   public static async getInitialProps ({ store }) {
     return store.dispatch(loadAllRepositories())
@@ -25,7 +33,13 @@ export default app(connect(mapStateToProps)(class Teams extends React.Component 
           <h1>Alle kodebaser</h1>
           {this.props.repositories.map((repo) => (
             <div key={repo.id}>
-              <h2><Link href={repo.html_url}><a>{repo.name}</a></Link>{repo.private && ' (lukket)'}</h2>
+              <h2>
+                <Link href={repo.html_url}><a>{repo.name}</a></Link>
+                {' '}
+                {repo.private && '(lukket)'}
+                {' '}
+                {repo.travis && <TravisBadge slug={repo.travis} defaultBranch={repo.default_branch} /> }
+              </h2>
               <p>{repo.description}</p>
             </div>
           ))}
