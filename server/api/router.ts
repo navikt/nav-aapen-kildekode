@@ -1,5 +1,6 @@
 import express from 'express'
 import { getInstallationClient, fetchAll } from './githubClient'
+import { fetchTravisRepositoriesMap } from './travisClient'
 import * as config from '../config'
 
 const router = new express.Router()
@@ -46,14 +47,24 @@ router.get('/teams/:id', async (req, res) => {
 
 router.get('/repositories', async (req, res) => {
   try {
+    const org = config.getConfig('GITHUB_ORG_NAME')
     const installationClient = await getInstallationClient()
-      const all = await fetchAll(installationClient, (params) =>
+      const [travisRepos, all] = await Promise.all([fetchTravisRepositoriesMap(org), fetchAll(installationClient, (params) =>
     installationClient.repos.getForOrg({
-      org: config.getConfig('GITHUB_ORG_NAME'), per_page: 100,
+      org, per_page: 100,
       ...params,
       type: 'public'
+    }))])
+    res.send(all.map(repo => {
+      const id = String(repo.id)
+      if (travisRepos[id] !== undefined) {
+        repo.travis = travisRepos[id].slug
+        console.log('with travis', repo)
+      } else {
+        console.log('no travis')
+      }
+      return repo
     }))
-    res.send(all)
   } catch (error) {
     console.error('Could not get all public repositories', error)
     res.status(500).json({ message: 'Could not get public repositories' })
