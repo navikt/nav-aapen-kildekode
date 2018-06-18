@@ -1,7 +1,5 @@
 FROM node:9.11.1-alpine as build
 
-RUN apk add --no-cache curl
-
 WORKDIR /app
 
 ADD . .
@@ -15,6 +13,8 @@ RUN yarn test
 RUN yarn build
 
 FROM node:9.11.1-alpine
+
+RUN apk add --no-cache curl
 
 WORKDIR /app
 
