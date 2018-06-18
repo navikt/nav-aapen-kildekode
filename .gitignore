@@ -7,3 +7,4 @@ node_modules
 yarn-error.log
 private-key.pem
 .env
+github_app_private_key.pem

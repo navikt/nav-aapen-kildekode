@@ -1,7 +1,8 @@
 import createApp from 'github-app'
 import * as config from '../config'
+import fs from 'fs';
 
-const cert = Buffer.from(config.getConfig('GITHUB_APP_PRIVATE_KEY_PEM'), 'base64')
+const cert = fs.readFileSync(config.getConfig('GITHUB_APP_PRIVATE_KEY_PATH'));
 
 const githubClient = createApp({
   id: config.getConfig('GITHUB_APP_ID'),
