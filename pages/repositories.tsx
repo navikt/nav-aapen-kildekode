@@ -38,7 +38,7 @@ export default app(connect(mapStateToProps)(class Teams extends React.Component 
                 {' '}
                 {repo.private && '(lukket)'}
                 {' '}
-                {repo.travis && <TravisBadge slug={repo.travis} defaultBranch={repo.default_branch} /> }
+                {repo.travis && <TravisBadge slug={repo.travis} defaultBranch={repo.default_branch} />}
               </h2>
               <p>{repo.description}</p>
             </div>
