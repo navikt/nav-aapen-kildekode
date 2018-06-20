@@ -10,7 +10,9 @@
     "test": "jest",
     "lint": "tslint --format verbose --project tsconfig.json --config tslint.json components/**/* containers/**/* pages/**/* state/**/*",
     "build": "yarn build-server && next build",
-    "start": "NODE_ENV=production node .server-dist/index.js"
+    "start": "NODE_ENV=production node .server-dist/index.js",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "author": "",
   "license": "MIT",
@@ -28,7 +30,8 @@
     "redux": "^3.7.2",
     "redux-devtools-extension": "^2.13.2",
     "redux-thunk": "^2.2.0",
-    "tslint": "^5.9.1"
+    "tslint": "^5.9.1",
+    "snyk": "^1.83.0"
   },
   "devDependencies": {
     "@types/jest": "^22.2.2",
@@ -53,5 +56,6 @@
       "json",
       "node"
     ]
-  }
+  },
+  "snyk": true
 }
