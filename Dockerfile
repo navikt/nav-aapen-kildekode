@@ -22,6 +22,8 @@ COPY package.json yarn.lock /app/
 
 RUN yarn --production=true
 
+RUN yarn snyk-protect
+
 COPY --from=build /app/.next /app/.next
 
 COPY --from=build /app/.server-dist /app/.server-dist

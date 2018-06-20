@@ -11,8 +11,7 @@
     "lint": "tslint --format verbose --project tsconfig.json --config tslint.json components/**/* containers/**/* pages/**/* state/**/*",
     "build": "yarn build-server && next build",
     "start": "NODE_ENV=production node .server-dist/index.js",
-    "snyk-protect": "snyk protect",
-    "prepublish": "npm run snyk-protect"
+    "snyk-protect": "snyk protect"
   },
   "author": "",
   "license": "MIT",
