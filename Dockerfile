@@ -6,6 +6,8 @@ ADD . .
 
 RUN yarn --production=false
 
+RUN yarn snyk-protect
+
 RUN yarn lint
 
 RUN yarn test
