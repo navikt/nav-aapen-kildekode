@@ -30,7 +30,7 @@
     "redux": "^3.7.2",
     "redux-devtools-extension": "^2.13.2",
     "redux-thunk": "^2.2.0",
-    "tslint": "^5.9.1",
+    "tslint": "^5.20.1",
     "snyk": "^1.116.2"
   },
   "devDependencies": {
